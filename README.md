@@ -35,7 +35,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-goofy-animals = "0.0.3"
+goofy-animals = "0.1.0"
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ use rand_chacha::ChaCha20Rng;
 
 fn main() {
     // Use a random seed
-    let mut rng = ChaCha20Rng::from_entropy();
+    let mut rng = ChaCha20Rng::from_os_rng();
 
     // Generate a random name
     let name = generate_name(&mut rng);
@@ -69,7 +69,7 @@ fn main() {
     let mut rng = ChaCha20Rng::seed_from_u64(0x1337);
 
     let name = generate_name(&mut rng);
-    assert_eq!(name, "healthy-frivolous-dove");
+    assert_eq!(name, "dismal-outlying-moth");
 }
 ```
 
@@ -83,7 +83,7 @@ use rand_chacha::ChaCha20Rng;
 use goofy_animals::generate_name_parts;
 
 fn main() {
-    let mut rng = ChaCha20Rng::from_entropy();
+    let mut rng = ChaCha20Rng::from_os_rng();
 
     let (adj1, adj2, animal) = generate_name_parts(&mut rng);
     println!("First adjective: {}", adj1);

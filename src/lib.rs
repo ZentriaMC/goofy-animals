@@ -150,15 +150,15 @@ impl<'a> GoofyAnimals<'a> {
     /// // Use a seeded RNG for deterministic output
     /// let mut rng = ChaCha20Rng::seed_from_u64(0x1337);
     /// let (adj1, adj2, animal) = DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng);
-    /// assert_eq!(adj1, "healthy");
-    /// assert_eq!(adj2, "frivolous");
-    /// assert_eq!(animal, "dove");
+    /// assert_eq!(adj1, "dismal");
+    /// assert_eq!(adj2, "outlying");
+    /// assert_eq!(animal, "moth");
     /// ```
     #[cfg_attr(feature = "tracing", tracing::instrument(skip(rng), level = tracing::Level::TRACE))]
     pub fn generate_name_parts(&self, rng: &mut impl Rng) -> (&'a str, &'a str, &'a str) {
         let (adjective_one, adjective_two) = loop {
-            let one = rng.gen_range(0..self.adjectives.len());
-            let two = rng.gen_range(0..self.adjectives.len());
+            let one = rng.random_range(0..self.adjectives.len());
+            let two = rng.random_range(0..self.adjectives.len());
 
             if one == two {
                 continue;
@@ -167,7 +167,7 @@ impl<'a> GoofyAnimals<'a> {
             break (one, two);
         };
 
-        let animal = rng.gen_range(0..self.animals.len());
+        let animal = rng.random_range(0..self.animals.len());
 
         #[cfg(feature = "tracing")]
         tracing::trace!(adjective_one, adjective_two, animal, "generated name");
@@ -202,7 +202,7 @@ impl<'a> GoofyAnimals<'a> {
     /// // Use a seeded RNG for deterministic output
     /// let mut rng = ChaCha20Rng::seed_from_u64(0x1337);
     /// let name = DEFAULT_GOOFY_ANIMALS.generate_name(&mut rng);
-    /// assert_eq!(name, "healthy-frivolous-dove");
+    /// assert_eq!(name, "dismal-outlying-moth");
     /// ```
     ///
     /// # Feature Flag
@@ -250,9 +250,9 @@ impl Debug for GoofyAnimals<'_> {
 /// // Use a seeded RNG for deterministic output
 /// let mut rng = ChaCha20Rng::seed_from_u64(0x1337);
 /// let (adj1, adj2, animal) = generate_name_parts(&mut rng);
-/// assert_eq!(adj1, "healthy");
-/// assert_eq!(adj2, "frivolous");
-/// assert_eq!(animal, "dove");
+/// assert_eq!(adj1, "dismal");
+/// assert_eq!(adj2, "outlying");
+/// assert_eq!(animal, "moth");
 /// ```
 ///
 /// See [`GoofyAnimals::generate_name_parts`] for more details.
@@ -284,7 +284,7 @@ pub fn generate_name_parts(rng: &mut impl Rng) -> (&'static str, &'static str, &
 /// // Use a seeded RNG for deterministic output
 /// let mut rng = ChaCha20Rng::seed_from_u64(0x1337);
 /// let name = generate_name(&mut rng);
-/// assert_eq!(name, "healthy-frivolous-dove");
+/// assert_eq!(name, "dismal-outlying-moth");
 /// ```
 ///
 /// # Feature Flag
@@ -325,35 +325,35 @@ mod test {
 
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("healthy", "frivolous", "dove"),
+            ("dismal", "outlying", "moth"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("glorious", "meager", "polar bear"),
+            ("healthy", "yellowish", "firefly"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("thankful", "elastic", "clownfish"),
+            ("flat", "faint", "squirrel"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("vigilant", "troubled", "firefly"),
+            ("glorious", "educated", "louse"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("handsome", "modest", "porcupine"),
+            ("big", "glittering", "perch"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("sunny", "wonderful", "dormouse"),
+            ("relieved", "shadowy", "booby"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("treasured", "woozy", "deer"),
+            ("simplistic", "thankful", "panther"),
         );
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name_parts(&mut rng),
-            ("mealy", "cylindrical", "dog"),
+            ("black", "serene", "marten"),
         );
 
         #[cfg(all(feature = "tracing", feature = "alloc"))]
@@ -383,7 +383,7 @@ mod test {
 
         assert_eq!(
             DEFAULT_GOOFY_ANIMALS.generate_name(&mut rng),
-            "healthy-frivolous-dove",
+            "dismal-outlying-moth",
         );
     }
 }

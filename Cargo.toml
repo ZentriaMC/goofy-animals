@@ -2,7 +2,7 @@
 name = "goofy-animals"
 description = "Generate a name in adjective-adjective-animal form"
 authors = ["Mark Vainomaa <mark@zentria.ee>"]
-version = "0.0.3"
+version = "0.1.0"
 edition = "2021"
 license = "MPL-2.0"
 repository = "https://github.com/ZentriaMC/goofy-animals.git"
@@ -19,13 +19,13 @@ default-target = "x86_64-unknown-linux-gnu"
 
 [dependencies]
 const-str = "0.6.2"
-rand = { version = "0.8", default-features = false }
-rand_chacha = { version = "0.3.1", optional = true }
+rand = { version = "0.9.2", default-features = false }
+rand_chacha = { version = "0.9.0", features = ["os_rng"], optional = true }
 tracing = { version = "0.1", default-features = false, features = ["attributes"], optional = true }
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"
-rand_chacha = "0.3.1"
+rand_chacha = "0.9.0"
 tracing-test = { version = "0.2.5" }
 # No clean way to enable feature flags for testing, but this works
 goofy-animals = { path = ".", features = ["alloc", "std", "examples", "tracing"] }
@@ -34,7 +34,7 @@ goofy-animals = { path = ".", features = ["alloc", "std", "examples", "tracing"]
 default = ["alloc"]
 alloc = []
 std = ["alloc"]
-examples = ["alloc", "rand/getrandom", "dep:rand_chacha"]
+examples = ["alloc", "dep:rand_chacha"]
 tracing = ["std", "dep:tracing"]
 
 [[bin]]
