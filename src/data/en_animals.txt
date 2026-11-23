@@ -244,7 +244,7 @@ pinniped
 piranha
 planarian
 platypus
-polar bear
+polarbear
 pony
 porcupine
 porpoise
